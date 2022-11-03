@@ -3,7 +3,7 @@ use evalexpr::{eval};
 
 fn main() {
     let input = include_str!("../data/input.txt");
-    let mut vars: HashMap<String, isize> = HashMap::new();
+    let mut vars: HashMap<String, i16> = HashMap::new();
     vars.insert(String::from("greatest_during_process"), 0);
 
     for line in input.lines() {
@@ -12,10 +12,10 @@ fn main() {
         vars.entry(parts[0].to_string()).or_default();
         vars.entry(parts[4].to_string()).or_default();
         // Evaluate the conditional expression provided in the instruction.
-        if eval(&format!("{} {} {}", vars[parts[4]], parts[5], parts[6].to_string().parse::<isize>().unwrap())).unwrap().as_boolean().unwrap() {
+        if eval(&format!("{} {} {}", vars[parts[4]], parts[5], parts[6].to_string().parse::<i16>().unwrap())).unwrap().as_boolean().unwrap() {
             match parts[1] {
-                "inc" => *vars.get_mut(parts[0]).unwrap() += parts[2].to_string().parse::<isize>().unwrap(),
-                "dec" => *vars.get_mut(parts[0]).unwrap() -= parts[2].to_string().parse::<isize>().unwrap(),
+                "inc" => *vars.get_mut(parts[0]).unwrap() += parts[2].to_string().parse::<i16>().unwrap(),
+                "dec" => *vars.get_mut(parts[0]).unwrap() -= parts[2].to_string().parse::<i16>().unwrap(),
                 _ => unreachable!()
             }
         }
